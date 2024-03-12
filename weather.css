@@ -1,0 +1,98 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    box-sizing: border-box;
+}
+body{
+    background-color: rgba(85, 25, 206, 0.255);
+}
+#card{
+    width: 90%;
+    max-width: 500px;
+    background: radial-gradient(circle, rgba(63,94,251,1) 9%, rgba(223,92,119,1) 83%);
+    padding: 40px 50px;
+    text-align: center;
+    color: #fff;
+    margin:100px auto 0px;
+    border-radius: 30px;
+}
+#search{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+#inputSearch{
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background-color:whitesmoke;
+    color: #555;
+    height: 40px;
+    font-size: 14px;
+    flex: 1;
+    margin-right: 15px;
+
+}
+#searchButton{
+    border: none;
+    outline: none;
+    background-color:white;
+    border-radius: 50%;
+    padding:10px;
+    cursor: pointer;
+
+}
+
+#searchButton img{
+    height: 20px;
+    width: 20px;
+}
+
+
+
+/*Styling the details div    */ /*0cc159ff5ffc1a14b0be195c41ce4acf api key*/
+
+.details{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 50px;
+    padding: 0 20px;
+
+}
+.detailsContent{
+    display: flex;
+    align-items: center;
+    text-align: left;
+}
+.detailsContent img{
+    width: 40px;
+    margin-right: 10px;
+}
+.humidity,.wind{
+    font-size: 17px;
+}
+/*Creating this bcoz it only shows the information about the particular city only when the user search for it*/
+/*We will have to change it to the display:block only when we tap on the search box*/
+#weather{
+    display:none
+}
+
+/*Adding styles for the error message*/
+
+#error{
+    text-align: left;
+    margin-left: 10px;
+    font-size: 12px;
+    margin-top: 10px;
+    color: rgb(19, 19, 19);
+    font-weight: bold;
+    display: none;/*For Toggling*/
+
+    /*Try to add the animation for the error message as it comes from somewhere(down or up) bcoz
+    while typing wrong city names continuously the error message seems to be static */
+    
+}

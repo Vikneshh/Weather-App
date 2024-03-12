@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather app </title>
+    <link rel="stylesheet" href="weather.css">
+</head>
+<body>
+    <div id="card">
+        <div id="search">
+            <input type="text" id="inputSearch" placeholder="Enter the name of city" spellcheck="false">
+
+            <button id="searchButton">
+                <img src="photos/search.png" alt="">
+            </button>
+        </div>
+
+        <!--Creating a div to show error messages for wrong city names-->
+        <div id="error">
+            <p>Invalid City Name</p>
+        </div>
+
+        <div id="weather">
+            <img src="photos/rain.png" alt="" class="weatherIcon">
+            <h1 class="temp">21°C</h1>
+            <h1 class="city">New york</h1>
+
+            <div class="details">
+                <div class="detailsContent">
+                        <img src="photos/humidity.png" alt="">
+                    
+                    <div class="humidity">
+                        <p class="humpara1">50%</p>
+                        <p class="humpara2">Humidity</p>
+                    </div>
+                </div>
+
+                <!--2nd image addition and text additon-->
+                
+                    <div class="detailsContent">
+                            <img src="photos/wind.png" alt="">
+                        
+                        <div class="wind">
+                            <p class="windpara1">15km/h</p>
+                            <p class="windpara2">Wind Speed</p>
+                        </div>
+                
+            </div>
+        </div>
+        
+    </div>
+
+
+    <script>
+        const apikey="0cc159ff5ffc1a14b0be195c41ce4acf";
+        const apiurl="https://api.openweathermap.org/data/2.5/weather?&units=metric&q=";
+
+        let searchBox=document.querySelector("#inputSearch");
+        let searchBtn=document.querySelector("#searchButton");
+        let weatherIcon=document.querySelector(".weatherIcon");
+        //Creating async function
+        //First we created response and managed to reflect datas on to the console
+        //Queryselector to make it dynamic
+        //Added cities on the function call 
+        //Made it dynamic by getting input from user and showcasing them
+        //The new thing learned here is you can directly add the (variable.value) in the function call instead of storing that in a new variable and call them.
+        searchBox.focus()//focusing searchbox automatically
+        async function checkWeather(city)
+        {
+            const response= await fetch(apiurl+city+`&appid=${apikey}`);
+            if(response.status==404)
+            {
+                document.querySelector("#error").style.display="block";
+                document.querySelector("#weather").style.display="none";
+            }
+            //Copying all the codes in the else statement 
+            else{ 
+                let data=  await response.json();
+
+            console.log(data)
+
+            document.querySelector(".city").innerHTML=data.name;
+            document.querySelector(".temp").innerHTML=Math.round(data.main.temp)+"°C";
+            document.querySelector(".humpara1").innerHTML=data.main.humidity+" %";
+            document.querySelector(".windpara1").innerHTML=data.wind.speed+" km/h";
+            //Used switch statements to change the images related to the city
+            switch (data.weather[0].main) {
+                case "Mist":
+                    weatherIcon.src="photos/mist.png"
+                    break;
+                case "Drizzle":
+                    weatherIcon.src="photos/drizzle.png"
+                    break;
+                case "Rain":
+                    weatherIcon.src="photos/rain.png"
+                    break;
+                case "Clouds":
+                    weatherIcon.src="photos/clouds.png"
+                    break;
+                case "Snow":
+                    weatherIcon.src="photos/snow.png"
+                    break;
+
+                default:
+
+                    break;
+            }
+
+            //Changing the display configuration to block 
+
+            document.querySelector("#weather").style.display="block";
+
+            //Error message should not be shown while displaying the data so we are changing the display to none here.
+            
+            document.querySelector("#error").style.display="none";
+
+            // if(data.name="undefined")
+            // {
+            //     document.querySelector("#error").style.display="block"
+            // }
+
+            //The above code doesnt work pls get to know the reason .Instead of this he said to check the response code for 404 error and act accordingly.
+
+
+
+            }
+
+           
+        }
+        
+        searchBtn.addEventListener("click",()=>{
+             checkWeather(searchBox.value);
+        });
+        //We have used change event listener in the inputsearch  to exhibit information on the webpage using the enter key
+
+        searchBox.addEventListener("change",(event)=>
+        {
+
+            if(event.key="Enter"){
+                checkWeather(searchBox.value);
+            }
+             
+        })
+
+       
+        
+    </script>
+</body>
+</html>
